@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.codej.restAPi.board.mapper.MemberMapper">
+    <insert id="save" parameterType="sign.SignUpRequest" useGeneratedKeys="true" keyProperty="returnValue" keyColumn="member_id">
+        INSERT INTO member (
+            nickname,password,name,email,birth,age
+        )VALUES(
+                #{nickname},
+                #{password},
+                #{name},
+                #{email},
+                #{birth},
+                #{age}
+                       )
+    </insert>
+    <select id="countByNickname" parameterType="String" resultType="int">
+        SELECT count(nickname)
+        FROM member
+        where
+             nickname = #{nickname};
+    </select>
+    <select id="findByMemberId" parameterType="int" resultType="String">
+        SELECT nickname
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+    <update id="updateNickname" parameterType="MemberUpdateDto">
+        UPDATE member
+        SET
+            nickname = #{nickname}
+        WHERE
+            member_id = #{memberId}
+    </update>
+    <update id="withdrawMember" parameterType="int">
+        UPDATE member
+        SET
+            withdrawal_state = 'Y',
+            with_date = now()
+        WHERE
+            member_id = #{memberId}
+
+    </update>
+    <select id="existsByEmail" parameterType="String" resultType="boolean">
+        SELECT
+            IF(COUNT(email)= 1,1,0)
+        FROM member
+        WHERE email =#{email}
+    </select>
+    <select id="existsByNickname" parameterType="String" resultType="boolean">
+        SELECT
+            IF(COUNT(nickname)= 1,1,0)
+        FROM member
+        WHERE nickname =#{nickname}
+    </select>
+    <select id="getPassword" resultType="String" parameterType="String">
+        SELECT
+            password
+        FROM member
+        WHERE email =#{email}
+    </select>
+    <select id="getMemberId" resultType="int" parameterType="String">
+        SELECT
+            member_id
+        FROM member
+        WHERE email = #{email}
+    </select>
+
+</mapper>
