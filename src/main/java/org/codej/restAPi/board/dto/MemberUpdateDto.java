@@ -13,5 +13,4 @@ public class MemberUpdateDto {
 
     private int memberId;
     private String nickname;
-    private int returnValue;
 }
