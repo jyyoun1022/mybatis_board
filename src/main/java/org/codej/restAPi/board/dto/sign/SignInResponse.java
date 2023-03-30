@@ -1,4 +1,4 @@
-package org.codej.restAPi.board.dto;
+package org.codej.restAPi.board.dto.sign;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
