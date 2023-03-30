@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.codej.restAPi.board.mapper.MemberMapper">
-    <insert id="save" parameterType="sign.SignUpRequest" useGeneratedKeys="true" keyProperty="returnValue" keyColumn="member_id">
+    <insert id="save" parameterType="SignUpRequest" useGeneratedKeys="true" keyProperty="returnValue" keyColumn="member_id">
         INSERT INTO member (
             nickname,password,name,email,birth,age
         )VALUES(
@@ -31,7 +31,7 @@
         WHERE
             member_id = #{memberId}
     </update>
-    <update id="withdrawMember" parameterType="int">
+    <update id="withdrawMember" parameterType="Long">
         UPDATE member
         SET
             withdrawal_state = 'Y',
@@ -52,17 +52,41 @@
         FROM member
         WHERE nickname =#{nickname}
     </select>
+    <select id="existsByMemberId" parameterType="Long" resultType="boolean">
+        SELECT
+            IF(COUNT(member_id)=1,1,0)
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
     <select id="getPassword" resultType="String" parameterType="String">
         SELECT
             password
         FROM member
-        WHERE email =#{email}
+        WHERE email = #{email}
     </select>
     <select id="getMemberId" resultType="int" parameterType="String">
         SELECT
             member_id
         FROM member
         WHERE email = #{email}
+    </select>
+    <select id="findByEmail" parameterType="String" resultType="Member">
+        SELECT
+            member_id,
+            nickname,
+            password,
+            name,
+            email,
+            role,
+            birth,
+            age,
+            withdrawal_state as withdrawState,
+            reg_date as regDate,
+            mod_date as modDate,
+            with_date as withDate
+        FROM
+            member
+        where email = #{email}
     </select>
 
 </mapper>
