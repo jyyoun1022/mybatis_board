@@ -1,4 +1,4 @@
-package org.codej.restAPi.board.dto;
+package org.codej.restAPi.board.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

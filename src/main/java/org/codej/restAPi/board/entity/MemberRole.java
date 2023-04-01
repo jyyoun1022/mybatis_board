@@ -5,11 +5,9 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
-public class Role {
+@EqualsAndHashCode
+public class MemberRole {
 
-    private Long roleId;
-    private String roleType;
-
-
+    private Long memberId;
+    private Role role;
 }
