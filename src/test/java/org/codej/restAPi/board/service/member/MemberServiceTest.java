@@ -1,6 +1,6 @@
 package org.codej.restAPi.board.service.member;
 
-import org.codej.restAPi.board.dto.Member;
+import org.codej.restAPi.board.dto.member.Member;
 import org.codej.restAPi.board.exception.CustomException;
 import org.codej.restAPi.board.mapper.MemberMapper;
 import org.codej.restAPi.board.service.MemberServiceImpl;

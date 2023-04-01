@@ -34,7 +34,7 @@ public class ToKenServiceTest {
      * 하지만 해당값을 읽어올 수 없기에 ReflectionTestUtils를 사용하여(리플렉션) 어떠한 객체의 필드값을 주입가능
      */
     @BeforeEach
-    void init(){
+    void init() {
         ReflectionTestUtils.setField(tokenService, "accessTokenMaxAgeSeconds", 10L);
         ReflectionTestUtils.setField(tokenService, "refreshTokenMaxAgeSeconds", 10L);
         ReflectionTestUtils.setField(tokenService, "accessKey", "accessKey");
@@ -45,17 +45,18 @@ public class ToKenServiceTest {
      *
      */
     @Test
-    void createAccessTokenTest(){
+    void createAccessTokenTest() {
         //given
-        given(jwtHandler.createToken(anyString(),anyString(),anyLong())).willReturn("access");
+        given(jwtHandler.createToken(anyString(), anyString(), anyLong())).willReturn("access");
         //when
         String token = tokenService.createAccessToken("subject");
 
         //then
         assertThat(token).isEqualTo("access");
-        verify(jwtHandler).createToken(anyString(),anyString(),anyLong());
+        verify(jwtHandler).createToken(anyString(), anyString(), anyLong());
 
     }
+
     @Test
     void createRefreshTokenTest() {
         // given
@@ -67,5 +68,67 @@ public class ToKenServiceTest {
         // then
         assertThat(token).isEqualTo("refresh");
         verify(jwtHandler).createToken(anyString(), anyString(), anyLong());
+    }
+
+    @Test
+    void validateAccessTokenTest() {
+        // given
+        given(jwtHandler.validate(anyString(), anyString())).willReturn(true);
+
+        // when, then
+        assertThat(tokenService.validateAccessToken("token")).isTrue();
+    }
+
+    @Test
+    void invalidateAccessTokenTest() {
+        // given
+        given(jwtHandler.validate(anyString(), anyString())).willReturn(false);
+
+        // when, then
+        assertThat(tokenService.validateAccessToken("token")).isFalse();
+    }
+
+    @Test
+    void validateRefreshTokenTest() {
+        // given
+        given(jwtHandler.validate(anyString(), anyString())).willReturn(true);
+
+        // when, then
+        assertThat(tokenService.validateRefreshToken("token")).isTrue();
+    }
+
+    @Test
+    void invalidateRefreshTokenTest() {
+        // given
+        given(jwtHandler.validate(anyString(), anyString())).willReturn(false);
+
+        // when, then
+        assertThat(tokenService.validateRefreshToken("token")).isFalse();
+    }
+
+    @Test
+    void extractAccessTokenSubjectTest() {
+        // given
+        String subject = "subject";
+        given(jwtHandler.extractSubject(anyString(), anyString())).willReturn(subject);
+
+        // when
+        String result = tokenService.extractAccessTokenSubject("token");
+
+        // then
+        assertThat(subject).isEqualTo(result);
+    }
+
+    @Test
+    void extractRefreshTokenSubjectTest() {
+        // given
+        String subject = "subject";
+        given(jwtHandler.extractSubject(anyString(), anyString())).willReturn(subject);
+
+        // when
+        String result = tokenService.extractRefreshTokenSubject("token");
+
+        // then
+        assertThat(subject).isEqualTo(result);
     }
 }

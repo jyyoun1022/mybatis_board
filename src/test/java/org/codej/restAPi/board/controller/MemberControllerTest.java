@@ -1,7 +1,7 @@
 package org.codej.restAPi.board.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.codej.restAPi.board.dto.MemberUpdateDto;
+import org.codej.restAPi.board.dto.member.MemberUpdateDto;
 import org.codej.restAPi.board.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

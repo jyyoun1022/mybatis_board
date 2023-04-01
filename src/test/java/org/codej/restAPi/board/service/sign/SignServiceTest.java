@@ -1,10 +1,9 @@
 package org.codej.restAPi.board.service.sign;
 
-import org.codej.restAPi.board.dto.Member;
+import org.codej.restAPi.board.dto.member.Member;
 import org.codej.restAPi.board.dto.sign.SignInRequest;
 import org.codej.restAPi.board.dto.sign.SignInResponse;
 import org.codej.restAPi.board.dto.sign.SignUpRequest;
-import org.codej.restAPi.board.entity.Role;
 import org.codej.restAPi.board.exception.CustomException;
 import org.codej.restAPi.board.mapper.MemberMapper;
 import org.junit.jupiter.api.Test;
@@ -13,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -88,7 +89,7 @@ public class SignServiceTest {
     }
 
     private Member createMember() {
-        return new Member("codej", "password", "윤재열", "email@gmail.com", Role.USER.getKey(), "1996-1022", 26);
+        return new Member(1L,"codej", "password", "윤재열", "email@gmail.com", Set.of(), "1996-1022", 26);
     }
 
 }
