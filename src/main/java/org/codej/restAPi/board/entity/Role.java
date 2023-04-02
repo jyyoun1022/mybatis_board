@@ -6,10 +6,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@ToString
 public class Role {
 
-    private Long roleId;
+    private int roleId;
     private String roleType;
 
-
+    public Role(String roleType) {
+        this.roleType = roleType;
+    }
 }

@@ -1,8 +1,8 @@
 package org.codej.restAPi.board.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.codej.restAPi.board.dto.Member;
-import org.codej.restAPi.board.dto.MemberUpdateDto;
+import org.codej.restAPi.board.dto.member.Member;
+import org.codej.restAPi.board.dto.member.MemberUpdateDto;
 import org.codej.restAPi.board.dto.sign.SignUpRequest;
 import org.springframework.stereotype.Component;
 
