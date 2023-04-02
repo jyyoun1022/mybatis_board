@@ -6,6 +6,7 @@ import org.codej.restAPi.board.dto.sign.SignInResponse;
 import org.codej.restAPi.board.dto.sign.SignUpRequest;
 import org.codej.restAPi.board.exception.CustomException;
 import org.codej.restAPi.board.mapper.MemberMapper;
+import org.codej.restAPi.board.mapper.MemberRoleMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,9 +18,9 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,16 +34,20 @@ public class SignServiceTest {
     PasswordEncoder passwordEncoder;
     @Mock
     TokenService tokenService;
+    @Mock
+    MemberRoleMapper memberRoleMapper;
 
     @Test
     void signUpTest(){
         //given
         SignUpRequest req = createSignUpRequest();
         given(passwordEncoder.encode(any())).willReturn("password1");
+        doNothing().when(memberRoleMapper).save(anyInt(),anyInt());
         //when
         signService.signUp(req);
         //then
         verify(passwordEncoder).encode(req.getPassword());
+        verify(memberRoleMapper).save(anyInt(),anyInt());
         verify(memberMapper).save(any());
     }
     @Test
