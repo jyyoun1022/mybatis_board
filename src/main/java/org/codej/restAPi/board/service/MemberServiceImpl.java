@@ -2,8 +2,8 @@ package org.codej.restAPi.board.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.codej.restAPi.board.dto.Member;
-import org.codej.restAPi.board.dto.MemberUpdateDto;
+import org.codej.restAPi.board.dto.member.Member;
+import org.codej.restAPi.board.dto.member.MemberUpdateDto;
 import org.codej.restAPi.board.exception.CustomException;
 import org.codej.restAPi.board.mapper.MemberMapper;
 import org.springframework.stereotype.Service;

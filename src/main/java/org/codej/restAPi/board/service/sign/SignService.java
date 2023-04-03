@@ -5,8 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.codej.restAPi.board.dto.sign.SignInRequest;
 import org.codej.restAPi.board.dto.sign.SignInResponse;
 import org.codej.restAPi.board.dto.sign.SignUpRequest;
+import org.codej.restAPi.board.entity.RoleType;
 import org.codej.restAPi.board.exception.CustomException;
 import org.codej.restAPi.board.mapper.MemberMapper;
+import org.codej.restAPi.board.mapper.MemberRoleMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import static org.codej.restAPi.board.exception.ErrorCode.*;
 public class SignService {
 
     private final MemberMapper memberMapper;
+    private final MemberRoleMapper memberRoleMapper;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
@@ -35,9 +38,12 @@ public class SignService {
         log.info("ENCODED PASSWORD ::: {}",encodedPassword);
         req.setPassword(encodedPassword);
         memberMapper.save(req);
+        int memberId = req.getReturnValue();
+        memberRoleMapper.save(memberId, RoleType.USER.getKey());
         return req.getReturnValue();
     }
 
+    @Transactional
     public SignInResponse signIn(SignInRequest req) {
         validateSignInInfo(req);
 //        String password = memberMapper.getPassword(req.getEmail());
