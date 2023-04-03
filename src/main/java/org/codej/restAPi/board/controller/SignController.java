@@ -1,6 +1,7 @@
 package org.codej.restAPi.board.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.codej.restAPi.board.dto.sign.SignInRequest;
 import org.codej.restAPi.board.dto.sign.SignUpRequest;
 import org.codej.restAPi.board.service.sign.SignService;
@@ -17,6 +18,7 @@ import static org.codej.restAPi.board.util.Response.success;
 
 @RestController
 @RequiredArgsConstructor
+@Log4j2
 public class SignController {
 
     private final SignService signService;
@@ -24,6 +26,7 @@ public class SignController {
     @PostMapping("/api/sign-up")
     @ResponseStatus(HttpStatus.CREATED)
     public Response signUp(@Valid @RequestBody SignUpRequest req){
+        log.info("찍힘?");
         signService.signUp(req);
         return success();
     }

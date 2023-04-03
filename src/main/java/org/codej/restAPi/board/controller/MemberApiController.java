@@ -1,7 +1,7 @@
 package org.codej.restAPi.board.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.codej.restAPi.board.dto.MemberUpdateDto;
+import org.codej.restAPi.board.dto.member.MemberUpdateDto;
 import org.codej.restAPi.board.service.MemberService;
 import org.codej.restAPi.board.util.Response;
 import org.springframework.http.HttpStatus;
