@@ -1,6 +1,8 @@
 package org.codej.restAPi.board.security;
 
 import lombok.RequiredArgsConstructor;
+import org.codej.restAPi.board.exception.CustomAccessDeniedHandler;
+import org.codej.restAPi.board.exception.CustomAuthenticationEntryPoint;
 import org.codej.restAPi.board.service.sign.TokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
