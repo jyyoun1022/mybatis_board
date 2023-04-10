@@ -40,10 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .anyRequest().hasAnyRole("ADMIN")
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler()) // 5
+                //인증된 사용자가 권한 부족 등의 사유로 접근이 거부되었을때 작동할 핸들러
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 6
+                // 인증되지 않은 사용자의 접근이 거부되었을 때 작동할 핸들러
                 .and() // 7
                 .addFilterBefore(new JwtAuthenticationFilter(tokenService, userDetailsService), UsernamePasswordAuthenticationFilter.class);
+                // 토큰으로 사용자 인증하기 위해 직접 정의한 JwtAuthenticationFIlter를
+                // UsernamePasswordAuthenticationFilter의 이전 위치에 등록!
     }
 
     @Bean
