@@ -2,7 +2,6 @@ package org.codej.restAPi.board.controller.exception;
 
 import org.codej.restAPi.board.exception.AccessDeniedException;
 import org.codej.restAPi.board.exception.AuthenticationEntryPointException;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
