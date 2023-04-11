@@ -3,7 +3,6 @@ package org.codej.restAPi.board.security;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 @Builder
 public class CustomUserDetails implements UserDetails {
 
-    private final String memberId;
+    private final String email;
     private final Set<GrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -29,7 +28,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return memberId;
+        return email;
     }
 
     @Override

@@ -3,6 +3,7 @@ package org.codej.restAPi.board.security;
 import lombok.RequiredArgsConstructor;
 import org.codej.restAPi.board.exception.CustomAccessDeniedHandler;
 import org.codej.restAPi.board.exception.CustomAuthenticationEntryPoint;
+import org.codej.restAPi.board.service.sign.CustomUserDetailsService;
 import org.codej.restAPi.board.service.sign.TokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final TokenService tokenService;
-    private final CustomUserDetailService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                         .antMatchers(HttpMethod.POST,"/api/sign-in","/api/sign-up").permitAll()
                         .antMatchers(HttpMethod.GET,"?api/**").permitAll()
-                        .antMatchers(HttpMethod.DELETE,"/api/members/**/**").access("memberGuard.check(#id)")// @<빈이름>.<메서드명>(<인자,#id로하면 {id}로 들어감)
+                        .antMatchers(HttpMethod.DELETE,"/api/members/**/**").access("@memberGuard.check(#id)")// @<빈이름>.<메서드명>(<인자,#id로하면 {id}로 들어감)
                         .anyRequest().hasAnyRole("ADMIN")
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler()) // 5

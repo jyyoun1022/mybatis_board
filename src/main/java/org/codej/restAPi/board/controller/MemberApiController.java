@@ -41,6 +41,7 @@ public class MemberApiController {
     @DeleteMapping("/api/members/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Response withdraw(@PathVariable("id") Long id) {
+        //TODO: 손봐야함
         memberService.withdraw(id);
         return Response.success();
     }
