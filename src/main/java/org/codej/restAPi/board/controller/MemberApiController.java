@@ -46,9 +46,10 @@ public class MemberApiController {
         return Response.success();
     }
 
-    @PatchMapping("/api/members")
+    @PostMapping("/api/members")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Response updateNickname(@RequestBody MemberUpdateDto dto) {
+    public Response updateNickname(MemberUpdateDto dto) {
+
         memberService.updateNickname(dto);
         return Response.success();
     }
